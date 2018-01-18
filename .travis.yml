@@ -5,7 +5,7 @@ matrix:
       addons:
         chrome: stable
       before_install:
-        - python --version
+        - python3.6 --version
         - cd neaps-spa/
       install:
         - echo "@@@ Installing SPA requirements @@@"
@@ -25,9 +25,10 @@ matrix:
       install:
         - echo "@@@ Installing API requirements @@@"
         - pip install -r requirements.txt
+        - pip install nose
       script:
         - echo "@@@ Running API tests @@@"
-        - python -m unittest **/*_test.py
+        - nosetests
       after_success:
         - echo "@@@ Run dev server @@@"
         - flask run
