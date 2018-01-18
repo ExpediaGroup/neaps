@@ -7,10 +7,9 @@ matrix:
         - FLASK_CONFIG=dev.cfg
         - FLASK_DEBUG=1
       addons:
-        chrome: stable
-        # sauce_connect:
-        #   username: "glsorre"
-        #   access_key: "4c0304aa-bba2-4bb2-959b-e4b05459bda2"
+        sauce_connect:
+          username: "glsorre"
+          access_key: "4c0304aa-bba2-4bb2-959b-e4b05459bda2"
       before_install:
         - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
         - source $HOME/.nvm/nvm.sh
@@ -28,7 +27,7 @@ matrix:
       script:
         - echo "@@@ Launching SPA tests @@@"
         - npm run unit
-        - npm run end2end
+        - npm run end2end_travis
     
     - language: python
       python: 3.6
