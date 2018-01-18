@@ -1,0 +1,28 @@
+language: python
+python: 3.6
+env:
+  - FLASK_APP="autoapp.py"
+  - FLASK_CONFIG="dev.cfg"
+  - FLASK_DEBUG=1
+before_script:
+  - cd neaps-api/
+install:
+  - echo "@@@ Installing API requirements @@@"
+  - pip install -r requirements.txt
+script:
+  - echo "@@@ Running API tests @@@"
+  - python -m unittest *
+after_success:
+  - flask run
+
+matrix:
+  include:
+    - language: node
+      before_install:
+        - cd neaps-spa/
+      install:
+        - echo "@@@ Installing SPA requirements @@@"
+        - npm install 
+      script:
+        - echo "@@@ Launching SPA tests @@@"
+        - npm run test
