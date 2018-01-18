@@ -35,7 +35,7 @@ module.exports = {
   "test_settings": {
     "default": {
       "selenium_port": 4445,
-      "selenium_host": "localhost/wd/hub",
+      "selenium_host": "localhost",
       "silent": false
     },
 
