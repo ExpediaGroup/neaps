@@ -1,9 +1,11 @@
 matrix:
   include:
     - language: node
+      python: 3.6
       addons:
         chrome: stable
       before_install:
+        - python --version
         - cd neaps-spa/
       install:
         - echo "@@@ Installing SPA requirements @@@"
@@ -25,7 +27,7 @@ matrix:
         - pip install -r requirements.txt
       script:
         - echo "@@@ Running API tests @@@"
-        - python -m unittest *
+        - python -m unittest **/*_test.py
       after_success:
         - echo "@@@ Run dev server @@@"
         - flask run
