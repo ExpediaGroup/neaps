@@ -9,7 +9,7 @@
     "build": "node build/build.js",
     "unit": "karma start test/unit/karma.conf.js --single-run",
     "end2end": "node test/end2end/runner.js",
-    "end2end_travisci": "node node test/end2end/runner.js --config test/end2end/travisci.conf"
+    "end2end_travisci": "node test/end2end/runner.js --config test/end2end/travisci.conf.js",
     "test": "npm run unit && npm run end2end",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/end2end/specs"
   },
