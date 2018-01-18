@@ -24,7 +24,7 @@ module.exports = {
 
   "selenium": {
     "start_process": false,
-    "server_path": "node_modules/selenium-server/lib/runner/selenium-server-standalone-2.53.0.jar",
+    "server_path": "node_modules/selenium-server/lib/runner/selenium-server-standalone-3.8.1.jar",
     "host": "127.0.0.1",
     "port": 4444,
     "cli_args": {
@@ -35,8 +35,8 @@ module.exports = {
   "test_settings": {
     "default": {
       "selenium_port": 4445,
-      "selenium_host": "glsorre:4c0304aa-bba2-4bb2-959b-e4b05459bda2@localhost",
-      "silent": true
+      "selenium_host": "glsorre:4c0304aa-bba2-4bb2-959b-e4b05459bda2@ondemand.saucelabs.com",
+      "silent": false
     },
 
     "chrome": {
