@@ -1,11 +1,13 @@
 matrix:
   include:
     - language: node
+      addons:
+        chrome: stable
       before_install:
         - cd neaps-spa/
       install:
         - echo "@@@ Installing SPA requirements @@@"
-        - npm install 
+        - npm install
       script:
         - echo "@@@ Launching SPA tests @@@"
         - npm run unit
@@ -16,7 +18,7 @@ matrix:
         - FLASK_APP=autoapp.py
         - FLASK_CONFIG=dev.cfg
         - FLASK_DEBUG=1
-      before_script:
+      before_install:
         - cd neaps-api/
       install:
         - echo "@@@ Installing API requirements @@@"
@@ -25,4 +27,5 @@ matrix:
         - echo "@@@ Running API tests @@@"
         - python -m unittest *
       after_success:
+        - echo "@@@ Run dev server @@@"
         - flask run
