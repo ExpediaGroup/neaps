@@ -1,0 +1,12 @@
+spa:
+  build: .
+  ports:
+   - "80:80"
+  expose:
+    - "80"
+  links:
+   - api
+api:
+  image: neaps_api
+  expose:
+    - "3031"

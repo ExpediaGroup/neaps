@@ -1,0 +1,56 @@
+/*
+
+Copyright 2018 Expedia Inc.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+@import "./normalize";
+@import "./skeleton";
+@import "./fontello-codes";
+
+@font-face {
+  font-family: 'fontello';
+  src: url("../../static/font/fontello.eot"); /* IE9 Compat Modes */
+  src: url("../../static/font/fontello.eot?#iefix") format('embedded-opentype'), /* IE6-IE8 */
+      url("../../static/font/fontello.woff2") format('woff2'), /* Very Modern Browsers */
+      url("../../static/font/fontello.woff") format('woff'), /* Modern Browsers */
+      url("../../static/font/fontello.ttf") format('truetype'), /* Safari, Android, iOS */
+      url("../../static/font/fontello.svg#madd") format('svg'); /* Legacy iOS */
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "fontello", "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#top {
+  width: 80%;
+  margin: 0 10%;
+  color: #fff;
+  
+  
+  height: 50px;
+  
+  background: url("../../static/hotelslogo.png") no-repeat center left #F02A21;
+  h1 {
+    float: left;
+    font-size: 30px;
+    line-height: 50px;
+    padding-left: 180px;
+  }
+  span {
+    line-height: 60px;
+    padding: 0 10px;
+  }
+}
