@@ -35,8 +35,8 @@ module.exports = {
   "test_settings": {
     "default": {
       "selenium_port": 4445,
-      "selenium_host": "https://glsorre:4c0304aa-bba2-4bb2-959b-e4b05459bda2@localhost/wd/hub",
-      "silent": true
+      "selenium_host": "localhost/wd/hub",
+      "silent": false
     },
 
     "chrome": {
