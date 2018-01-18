@@ -1,18 +1,29 @@
 matrix:
   include:
-    - language: node
+    - language: python
       python: 3.6
+      env:
+        - FLASK_APP=autoapp.py
+        - FLASK_CONFIG=dev.cfg
+        - FLASK_DEBUG=1
       addons:
         chrome: stable
       before_install:
+        - source $HOME/.nvm/nvm.sh
+        - nvm install stable
+        - nvm use stable
         - python3.6 --version
-        - cd neaps-spa/
+        - cd neaps-api/
+        - echo "@@@ Installing API requirements @@@"
+        - pip install -r requirements.txt
+        - flask run 2&>1 &
+        - cd ../neaps-spa/
       install:
         - echo "@@@ Installing SPA requirements @@@"
         - npm install
       script:
         - echo "@@@ Launching SPA tests @@@"
-        - npm run unit
+        - npm run test
     
     - language: python
       python: 3.6
@@ -29,6 +40,6 @@ matrix:
       script:
         - echo "@@@ Running API tests @@@"
         - nosetests
-      after_success:
-        - echo "@@@ Run dev server @@@"
-        - flask run
+      # after_success:
+      #   - echo "@@@ Run dev server @@@"
+      #   - flask run
