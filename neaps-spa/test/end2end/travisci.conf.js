@@ -35,7 +35,7 @@ module.exports = {
   "test_settings": {
     "default": {
       "selenium_port": 4445,
-      "selenium_host": "glsorre:4c0304aa-bba2-4bb2-959b-e4b05459bda2@ondemand.saucelabs.com",
+      "selenium_host": "glsorre:4c0304aa-bba2-4bb2-959b-e4b05459bda2@localhost",
       "silent": false
     },
 
