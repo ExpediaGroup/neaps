@@ -8,6 +8,9 @@ matrix:
         - FLASK_DEBUG=1
       addons:
         chrome: stable
+        sauce_connect:
+          username: "glsorre"
+          access_key: "4c0304aa-bba2-4bb2-959b-e4b05459bda2"
       before_install:
         - source $HOME/.nvm/nvm.sh
         - nvm install stable
