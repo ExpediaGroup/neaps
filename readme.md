@@ -8,7 +8,7 @@
 
 ![Getting started.](screenshot.png "A screenshot of neaps with showing a basic simulation.")
 
-Unfortunately neaps is currently deployed only for internal use at Expedia Inc. but you can easily run it locally by referring at the `readme.md` found in `neaps-spa` and `neaps-api` directories.
+You can easily run it locally by referring at the `readme.md` found in [`neaps-spa`](https://github.com/HotelsDotCom/neaps/blob/master/neaps-spa/README.md) and [`neaps-api`](https://github.com/HotelsDotCom/neaps/blob/master/neaps-api/readme.md) directories.
 
 # Overview
 NEAPS is a montecarlo simulator which estimates the deadline of agile projects, starting from historical data.
