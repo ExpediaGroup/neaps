@@ -7,21 +7,16 @@ matrix:
         - FLASK_CONFIG=dev.cfg
         - FLASK_DEBUG=1
         - DISPLAY=:99.0
+        - SAUCE_USERNAME="glsorre"
+        - SAUCE_ACCESS_KEY="4c0304aa-bba2-4bb2-959b-e4b05459bda2"
       addons:
-        # firefox: latest
-        apt:
-          sources:
-          - google-chrome
-          packages:
-          - google-chrome-stable fluxbox
+        sauce_connect:
+          username: "glsorre"
+          access_key: "4c0304aa-bba2-4bb2-959b-e4b05459bda2"
       before_install:
-        - "sh -e /etc/init.d/xvfb start"
-        - sleep 3
-        - fluxbox >/dev/null 2>&1 &
         - source $HOME/.nvm/nvm.sh
         - nvm install stable
         - nvm use stable
-        - python3.6 --version
         - cd neaps-api/
         - echo "@@@ Installing API requirements @@@"
         - pip install -r requirements.txt
@@ -33,7 +28,7 @@ matrix:
       script:
         - echo "@@@ Launching SPA tests @@@"
         - npm run unit
-        - npm run end2end
+        - npm run travici
     
     - language: python
       python: 3.6
@@ -50,6 +45,3 @@ matrix:
       script:
         - echo "@@@ Running API tests @@@"
         - nosetests
-      # after_success:
-      #   - echo "@@@ Run dev server @@@"
-      #   - flask run
