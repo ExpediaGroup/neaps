@@ -18,6 +18,11 @@ limitations under the License.
 // http://nightwatchjs.org/guide#usage
 
 module.exports = {
+  'test to understand if page is here': function (browser) {
+    browser
+    .url('http://127.0.0.1:8080/')
+    .waitForElementVisible('body', 5000)
+  },
   'run two simulations kanban type 1 with one leg': function (browser) {
     browser
     .useXpath()
