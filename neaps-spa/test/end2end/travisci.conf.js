@@ -42,7 +42,9 @@ module.exports = {
       "access_key": process.env.SAUCE_ACCESS_KEY,
       "screenshots": {
         "enabled": false,
-        "path": "",
+        "on_failure": true,
+        "on_error": false,
+        "path": ""
       },
       "globals": {
         "waitForConditionTimeout": 10000,
@@ -53,7 +55,9 @@ module.exports = {
       "desiredCapabilities": {
         "browserName": "chrome",
         "platform": "Windows 10",
-        "version": "63"
+        "version": "63",
+        "javascriptEnabled": true,
+        "acceptSslCerts": true
       }
     },
 
@@ -61,7 +65,9 @@ module.exports = {
       "desiredCapabilities": {
         "browserName": "internet explorer",
         "platform": "Windows 10",
-        "version": "11.0"
+        "version": "11.0",
+        "javascriptEnabled": true,
+        "acceptSslCerts": true
       }
     }
   }
