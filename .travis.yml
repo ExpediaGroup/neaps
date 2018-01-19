@@ -28,7 +28,7 @@ matrix:
       script:
         - echo "@@@ Launching SPA tests @@@"
         - npm run unit
-        - npm run travici
+        - npm run travisci
     
     - language: python
       python: 3.6
