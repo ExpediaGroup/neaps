@@ -12,7 +12,6 @@ matrix:
       addons:
         sauce_connect:
           username: "glsorre"
-          direct_domains: "localhost"
           no_ssl_bump_domains: "localhost"
           access_key: "4c0304aa-bba2-4bb2-959b-e4b05459bda2"
       before_install:
