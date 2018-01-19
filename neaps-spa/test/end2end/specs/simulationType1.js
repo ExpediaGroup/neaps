@@ -21,7 +21,7 @@ module.exports = {
   'run two simulations kanban type 1 with one leg': function (browser) {
     browser
     .useXpath()
-    .url('http://localhost:8080')
+    .url('http://127.0.0.1:8080/')
       .waitForElementVisible('//*[@id="simulatioTypeSelect"]', 1000)
       .assert.elementPresent('//*[@id="simulatioTypeSelect"]')
       .click('//*[@id="simulatioTypeSelect"]/option[@value="0"]')
