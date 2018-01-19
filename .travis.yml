@@ -12,11 +12,10 @@ matrix:
         - NODE_ENV="testing"
       addons:
         hosts:
-          - site.local
-          - localhost
+          - realhostname
         sauce_connect:
           username: "glsorre"
-          no_ssl_bump_domains: site.local, localhost
+          no_ssl_bump_domains: realhostname
           access_key: "4c0304aa-bba2-4bb2-959b-e4b05459bda2"
       before_install:
         - source $HOME/.nvm/nvm.sh
