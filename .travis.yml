@@ -5,8 +5,7 @@ matrix:
       env:
         - FLASK_APP=autoapp.py
         - FLASK_CONFIG=dev.cfg
-        - FLASK_DEBUG=1
-        - DISPLAY=:99.0
+        - FLASK_DEBUG=0
         - SAUCE_USERNAME="glsorre"
         - SAUCE_ACCESS_KEY="4c0304aa-bba2-4bb2-959b-e4b05459bda2"
       addons:
