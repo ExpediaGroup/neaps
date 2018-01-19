@@ -9,7 +9,7 @@ matrix:
         - SAUCE_USERNAME="glsorre"
         - SAUCE_ACCESS_KEY="4c0304aa-bba2-4bb2-959b-e4b05459bda2"
         - PORT=8081
-        - NODE_ENV="production"
+        - NODE_ENV="testing"
       addons:
         hosts:
           - site.local
