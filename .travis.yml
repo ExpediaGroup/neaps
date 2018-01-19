@@ -11,9 +11,9 @@ matrix:
         - PORT=8081
       addons:
         sauce_connect:
-          username: "glsorre"
+          username: glsorre
           no_ssl_bump_domains: localhost
-          access_key: "4c0304aa-bba2-4bb2-959b-e4b05459bda2"
+          access_key: 4c0304aa-bba2-4bb2-959b-e4b05459bda2
       before_install:
         - source $HOME/.nvm/nvm.sh
         - nvm install stable
