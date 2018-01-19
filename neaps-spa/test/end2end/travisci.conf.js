@@ -45,7 +45,7 @@ module.exports = {
         "path": "",
       },
       "globals": {
-        "waitForConditionTimeout": 20000,
+        "waitForConditionTimeout": 10000,
   },
     },
 
