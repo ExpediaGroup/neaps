@@ -24,12 +24,12 @@ module.exports = {
 
   "selenium": {
     "start_process": false,
-    "server_path": "node_modules/selenium-server/lib/runner/selenium-server-standalone-3.8.1.jar",
-    "host": "127.0.0.1",
-    "port": 4444,
-    "cli_args": {
-      "webdriver.chrome.driver": require('chromedriver').path
-    }
+    // "server_path": "node_modules/selenium-server/lib/runner/selenium-server-standalone-3.8.1.jar",
+    // "host": "127.0.0.1",
+    // "port": 4444,
+    // "cli_args": {
+    //   "webdriver.chrome.driver": require('chromedriver').path
+    // }
   },
 
   "test_settings": {
@@ -37,12 +37,12 @@ module.exports = {
       "launch_url": "https://localhost:4445",
       "selenium_port": 4445,
       "selenium_host": "localhost",
-      "silent": true,
+      "silent": false,
       "username": process.env.SAUCE_USERNAME,
       "access_key": process.env.SAUCE_ACCESS_KEY,
       "screenshots": {
         "enabled": false,
-        "on_failure": true,
+        "on_failure": false,
         "on_error": false,
         "path": ""
       },
