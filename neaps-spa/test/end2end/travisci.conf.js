@@ -56,6 +56,7 @@ module.exports = {
         "browserName": "chrome",
         "platform": "Windows 10",
         "version": "63",
+        "networkConnectionEnabled": true,
         "javascriptEnabled": true,
         "acceptSslCerts": true
       }
@@ -66,6 +67,7 @@ module.exports = {
         "browserName": "internet explorer",
         "platform": "Windows 10",
         "version": "11.0",
+        "networkConnectionEnabled": true,
         "javascriptEnabled": true,
         "acceptSslCerts": true
       }

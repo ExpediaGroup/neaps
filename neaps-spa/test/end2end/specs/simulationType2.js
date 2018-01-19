@@ -21,7 +21,7 @@ module.exports = {
   'run two simulations kanban type 2 with one leg': function (browser) {
     browser
     .useXpath()
-    .url('http://localhost:8080')
+    .url('http://localhost:8081')
       .waitForElementVisible('//*[@id="simulatioTypeSelect"]', 1000)
       .assert.elementPresent('//*[@id="simulatioTypeSelect"]')
       .click('//*[@id="simulatioTypeSelect"]/option[@value="1"]')
@@ -40,7 +40,7 @@ module.exports = {
   'run two simulations kanban type 2 with one no montecarlo leg': function (browser) {
     browser
     .useXpath()
-    .url('http://localhost:8080')
+    .url('http://localhost:8081')
       .waitForElementVisible('//*[@id="simulatioTypeSelect"]', 1000)
       .assert.elementPresent('//*[@id="simulatioTypeSelect"]')
       .click('//*[@id="simulatioTypeSelect"]/option[@value="1"]')
@@ -60,7 +60,7 @@ module.exports = {
   'run one simulation kanban type 2 with two standard legs ': function (browser) {
     browser
     .useXpath()
-    .url('http://localhost:8080')
+    .url('http://localhost:8081')
       .waitForElementVisible('//*[@id="simulatioTypeSelect"]', 1000)
       .assert.elementPresent('//*[@id="simulatioTypeSelect"]')
       .click('//*[@id="simulatioTypeSelect"]/option[@value="1"]')
@@ -85,7 +85,7 @@ module.exports = {
   'run one simulation kanban type 2 with two no montecarlo legs': function (browser) {
     browser
     .useXpath()
-    .url('http://localhost:8080')
+    .url('http://localhost:8081')
       .waitForElementVisible('//*[@id="simulatioTypeSelect"]', 1000)
       .assert.elementPresent('//*[@id="simulatioTypeSelect"]')
       .click('//*[@id="simulatioTypeSelect"]/option[@value="1"]')
@@ -112,7 +112,7 @@ module.exports = {
   'run one simulation kanban type 2 with one standars leg and one no montecarlo leg': function (browser) {
     browser
     .useXpath()
-    .url('http://localhost:8080')
+    .url('http://localhost:8081')
       .waitForElementVisible('//*[@id="simulatioTypeSelect"]', 1000)
       .assert.elementPresent('//*[@id="simulatioTypeSelect"]')
       .click('//*[@id="simulatioTypeSelect"]/option[@value="1"]')
