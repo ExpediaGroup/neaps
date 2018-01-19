@@ -8,6 +8,7 @@ matrix:
         - FLASK_DEBUG=0
         - SAUCE_USERNAME="glsorre"
         - SAUCE_ACCESS_KEY="4c0304aa-bba2-4bb2-959b-e4b05459bda2"
+        - PORT=8080
       addons:
         sauce_connect:
           username: "glsorre"
