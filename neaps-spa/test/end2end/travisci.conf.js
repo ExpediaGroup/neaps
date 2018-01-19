@@ -37,7 +37,7 @@ module.exports = {
       "launch_url": "https://localhost:4445",
       "selenium_port": 4445,
       "selenium_host": "localhost",
-      "silent": false,
+      "silent": true,
       "username": process.env.SAUCE_USERNAME,
       "access_key": process.env.SAUCE_ACCESS_KEY,
       "screenshots": {
