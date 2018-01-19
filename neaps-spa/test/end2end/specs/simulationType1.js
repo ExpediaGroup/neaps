@@ -20,13 +20,13 @@ limitations under the License.
 module.exports = {
   'test to understand if page is here': function (browser) {
     browser
-    .url('http://realhostname:8081/')
+    .url('http://realhostname:8081')
     .waitForElementVisible('body', 5000)
   },
   'run two simulations kanban type 1 with one leg': function (browser) {
     browser
     .useXpath()
-    .url('http://realhostname:8081/')
+    .url('http://realhostname:8081')
       .waitForElementVisible('//*[@id="simulatioTypeSelect"]', 1000)
       .assert.elementPresent('//*[@id="simulatioTypeSelect"]')
       .click('//*[@id="simulatioTypeSelect"]/option[@value="0"]')
