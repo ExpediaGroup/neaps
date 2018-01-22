@@ -35,8 +35,8 @@ module.exports = {
   "test_settings": {
     "default": {
       //"launch_url": "https://localhost:4445",
-      "selenium_port": 80,
-      "selenium_host": "ondemand.saucelabs.com",
+      "selenium_port": 4445,
+      "selenium_host": "localhost",
       "tunnel-identifier": process.env.TRAVIS_JOB_NUMBER,
       "build": process.env.TRAVIS_BUILD_NUMBER,
       "username": process.env.SAUCE_USERNAME,
@@ -58,6 +58,7 @@ module.exports = {
         "browserName": "chrome",
         "platform": "Windows 10",
         "version": "63",
+        "tunnel-identifier": process.env.TRAVIS_JOB_NUMBER
       }
     },
 
@@ -66,6 +67,7 @@ module.exports = {
         "browserName": "internet explorer",
         "platform": "Windows 10",
         "version": "11.0",
+        "tunnel-identifier": process.env.TRAVIS_JOB_NUMBER
       }
     }
   }
