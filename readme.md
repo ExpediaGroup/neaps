@@ -1,6 +1,8 @@
-# *neaps* - no estimates agile process simulator
+# *neaps* - no-estimates agile process simulator
 
 ## a simulator to forecast the end of agile project basing on historical data and using montecarlo simulations
+
+[![Build Status](https://travis-ci.org/HotelsDotCom/neaps.svg?branch=master)](https://travis-ci.org/HotelsDotCom/neaps)
 
 ---
 
