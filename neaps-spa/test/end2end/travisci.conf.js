@@ -37,7 +37,7 @@ module.exports = {
       //"launch_url": "https://localhost:4445",
       "selenium_port": 4445,
       "selenium_host": "127.0.0.1",
-      "tunnelIdentifier": process.env.TRAVIS_JOB_NUMBER
+      "tunnelIdentifier": process.env.TRAVIS_JOB_NUMBER,
       "username": process.env.SAUCE_USERNAME,
       "access_key": process.env.SAUCE_ACCESS_KEY,
       "silent": true,
