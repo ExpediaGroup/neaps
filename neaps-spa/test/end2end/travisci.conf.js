@@ -35,8 +35,8 @@ module.exports = {
   "test_settings": {
     "default": {
       //"launch_url": "https://localhost:4445",
-      "selenium_port": 4445,
-      "selenium_host": "127.0.0.1",
+      "selenium_port": 80,
+      "selenium_host": "ondemand.saucelabs.com",
       "tunnel-identifier": process.env.TRAVIS_JOB_NUMBER,
       "build": process.env.TRAVIS_BUILD_NUMBER,
       "username": process.env.SAUCE_USERNAME,
