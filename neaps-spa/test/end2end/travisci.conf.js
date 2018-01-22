@@ -34,12 +34,12 @@ module.exports = {
 
   "test_settings": {
     "default": {
-      "launch_url": "https://localhost:4445",
-      "selenium_port": 4445,
-      "selenium_host": "localhost",
+      //"launch_url": "https://localhost:4445",
+      "port": 4445,
+      "hostname": "localhost",
       "silent": true,
-      "username": process.env.SAUCE_USERNAME,
-      "access_key": process.env.SAUCE_ACCESS_KEY,
+      "usr": process.env.SAUCE_USERNAME,
+      "pwd": process.env.SAUCE_ACCESS_KEY,
       "screenshots": {
         "enabled": false,
         "on_failure": false,
@@ -48,7 +48,7 @@ module.exports = {
       },
       "globals": {
         "waitForConditionTimeout": 10000,
-  },
+      },
     },
 
     "chrome": {
@@ -56,9 +56,6 @@ module.exports = {
         "browserName": "chrome",
         "platform": "Windows 10",
         "version": "63",
-        "networkConnectionEnabled": true,
-        "javascriptEnabled": true,
-        "acceptSslCerts": true
       }
     },
 
@@ -67,9 +64,6 @@ module.exports = {
         "browserName": "internet explorer",
         "platform": "Windows 10",
         "version": "11.0",
-        "networkConnectionEnabled": true,
-        "javascriptEnabled": true,
-        "acceptSslCerts": true
       }
     }
   }
