@@ -20,7 +20,7 @@ limitations under the License.
 module.exports = {
   'test to understand if page is here': function (browser) {
     browser
-    .url('http://localhost:8081')
+    .url('http://localhost:8081/check')
     .waitForElementVisible('body', 5000)
   },
   'run two simulations kanban type 1 with one leg': function (browser) {

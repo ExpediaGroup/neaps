@@ -42,6 +42,10 @@ module.exports = {
         target: 'http://localhost:5000',
         changeOrigin: true
       },
+      '/check': {
+        target: 'http://localhost:5000',
+        changeOrigin: true
+      },
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
