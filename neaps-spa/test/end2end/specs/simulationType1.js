@@ -36,7 +36,7 @@ module.exports = {
       .setValue('//*[@id="leg0_wip"]', '5')
       .assert.cssClassNotPresent('//*[@id="cta_button"]', 'disabled')
       .click('//*[@id="cta"]')
-      .waitForElementVisible('//*[@id="ticket0"]', 1000)
+      .waitForElementVisible('//*[@id="ticket0"]', 20000)
       .assert.elementPresent('//*[@id="ticket0"]')
       .pause(3000)
       .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr')

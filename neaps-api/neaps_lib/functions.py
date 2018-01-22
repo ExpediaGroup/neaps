@@ -15,7 +15,7 @@
 
 """ functions """
 import time
-from multiprocessing import Pool
+from multiprocessing import Pool, cpu_count
 from numpy import random, mean, ceil, float64, var, rint, int64, floor
 from neaps_lib.classes import StackCluster
 
@@ -159,7 +159,9 @@ def get_simulation_results(sample,
     for i in range(len(data)):
         data[i].append(runsdim[i])
 
-    out = parallelized_simulations(funs[fun], data, 4)
+    cpus = cpu_count()
+    print("--- %s available cpus ---" % cpus)
+    out = parallelized_simulations(funs[fun], data, cpus)
 
     print("--- %s seconds for %s montecarlo runs ---" % ((time.time() - start_time), runstot))
 
