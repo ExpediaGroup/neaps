@@ -35,11 +35,12 @@ module.exports = {
   "test_settings": {
     "default": {
       //"launch_url": "https://localhost:4445",
-      "port": 4445,
-      "hostname": "localhost",
+      "selenium_port": 4445,
+      "selenium_host": "127.0.0.1",
+      "tunnelIdentifier": process.env.TRAVIS_JOB_NUMBER
+      "username": process.env.SAUCE_USERNAME,
+      "access_key": process.env.SAUCE_ACCESS_KEY,
       "silent": true,
-      "usr": process.env.SAUCE_USERNAME,
-      "pwd": process.env.SAUCE_ACCESS_KEY,
       "screenshots": {
         "enabled": false,
         "on_failure": false,
