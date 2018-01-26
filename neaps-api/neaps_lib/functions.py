@@ -96,12 +96,12 @@ def sprints_needed(data):
     for j in range(data[1]):
         clus.add_stack(True)
 
-    # init = int(data[2] / max(data[0]) / data[1])
+    init = int(data[2] / max(data[0]) / data[1])
 
-    # for j in range(data[1]):
-    #     sim = random.choice(data[0], init, replace=True)
-    #     for k in range(init):
-    #         clus.get_stack(j).add_item(sim[k])
+    for j in range(data[1]):
+        sim = random.choice(data[0], init, replace=True)
+        for k in range(init):
+            clus.get_stack(j).add_item(sim[k])
 
     while True:
         res = clus.get_tot()
