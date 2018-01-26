@@ -144,8 +144,6 @@ ENV/
 # Rope project settings
 .ropeproject
 
-static
-!*/static
 .vscode
 !*/.vscode
 .env
