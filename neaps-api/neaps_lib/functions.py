@@ -17,7 +17,6 @@
 import time
 from multiprocessing import Pool, cpu_count
 import numpy as np
-from numpy import random, mean, ceil, float64, var, rint, int64, floor
 from flask import jsonify
 from neaps_lib.classes import StackCluster
 
@@ -27,21 +26,21 @@ def bootstrap(sample, predstot, predsdim, tot_integer=False):
     preds = []
 
     for i in range(predstot):
-        pick = random.choice(sample, predsdim, replace=True)
+        pick = np.random.choice(sample, predsdim, replace=True)
         if tot_integer == True:
-            preds.append(int64(floor(mean(pick))))
+            preds.append(np.int64(np.floor(np.mean(pick))))
         else:
-            preds.append(mean(pick))
+            preds.append(np.mean(pick))
 
     return preds
 
 def calculate_debt(runsdim, runstot, low_bound, high_bound):
     """ calculates tech debt and bugs """
-    debt_indexes = random.uniform(low_bound, high_bound, runstot)
+    debt_indexes = np.random.uniform(low_bound, high_bound, runstot)
     debt_indexes = runsdim * debt_indexes
-    debt_indexes = rint(debt_indexes)
+    debt_indexes = np.rint(debt_indexes)
 
-    return int64(debt_indexes)
+    return np.int64(debt_indexes)
 
 #def singleSimulation(preds, throughput, runsdim):
 def delivery_time(data):
@@ -51,7 +50,7 @@ def delivery_time(data):
     for j in range(data[1]):
         clus.add_stack()
 
-    sim = random.choice(data[0], data[2], replace=True)
+    sim = np.random.choice(data[0], data[2], replace=True)
 
     for k in range(len(sim)):
         cur = clus.get_smaller_stack()
@@ -73,7 +72,7 @@ def stories_completed(data):
     init = int(data[2] / max(data[0]) / data[1])
 
     for j in range(data[1]):
-        sim = random.choice(data[0], init, replace=True)
+        sim = np.random.choice(data[0], init, replace=True)
         for k in range(init):
             clus.get_stack(j).add_item(sim[k])
 
@@ -82,7 +81,7 @@ def stories_completed(data):
         if res.get_tot() >= data[2]:
             break
 
-        sim = random.choice(data[0], 1, replace=True)
+        sim = np.random.choice(data[0], 1, replace=True)
         cur = clus.get_smaller_stack()
         cur.add_item(sim[0])
 
@@ -99,7 +98,7 @@ def sprints_needed(data):
     init = int(data[2] / max(data[0]) / data[1])
 
     for j in range(data[1]):
-        sim = random.choice(data[0], init, replace=True)
+        sim = np.random.choice(data[0], init, replace=True)
         for k in range(init):
             clus.get_stack(j).add_item(sim[k])
 
@@ -108,7 +107,7 @@ def sprints_needed(data):
         if res >= data[2]:
             break
 
-        sim = random.choice(data[0], data[1], replace=True)
+        sim = np.random.choice(data[0], data[1], replace=True)
 
         for i in range(data[1]):
             clus.get_stack(i).add_item(sim[i])
@@ -130,12 +129,12 @@ def get_simulation_results(sample,
                            fun):
     """ main function """
     #checking sample variance
-    if var(sample) == .0:
+    if np.var(sample) == .0:
         print("No variance in the sample I won't run the montecarlo simulation./n")
         print("Tech debt growth will be ignored as well.")
-        res = no_variance_result(mean(sample),
+        res = no_variance_result(np.mean(sample),
                                  wip,
-                                 float64(runsdim),
+                                 np.float64(runsdim),
                                  runstot,
                                  fun)
         return (res, [0 for x in range(runstot)])
@@ -173,9 +172,9 @@ def get_simulation_results(sample,
 def no_variance_result(num, wip, runsdim, runstot, fun):
     """ fake simulation in case of historical sample variance is equal to 0"""
     switcher = {
-        0: lambda num, wip, runsdim: ceil(runsdim / wip) * num,
-        1: lambda num, wip, runsdim: ceil((runsdim / num) * wip),
-        2: lambda num, wip, runsdim: ceil((runsdim / num) / wip),
+        0: lambda num, wip, runsdim: np.ceil(runsdim / wip) * num,
+        1: lambda num, wip, runsdim: np.ceil((runsdim / num) * wip),
+        2: lambda num, wip, runsdim: np.ceil((runsdim / num) / wip),
     }
     # Get the function from switcher dictionary
     func = switcher.get(fun, lambda: "nothing")
@@ -214,13 +213,6 @@ def collect_data(predstot, runstot, chunksin, fun):
     debts = []
 
     for chunk in chunksin:
-        print(chunksin)
-        # sample = [np.float64(x) for x in chunk['sample'].split(',')]
-        # wip = int(chunk['wip'])
-        # runsdim = int(chunk['runsdim'])
-        # td_low_bound = float(chunk['td_low_bound'])
-        # td_high_bound = float(chunk['td_high_bound'])
-
         predsdim = int(len(chunk['sample']) / 4) + 1
 
         request = {
