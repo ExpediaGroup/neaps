@@ -16,7 +16,8 @@
 """ functions """
 import time
 from multiprocessing import Pool, cpu_count
-from numpy import random, mean, ceil, float64, var, rint, int64, floor
+import numpy as np
+from flask import jsonify
 from neaps_lib.classes import StackCluster
 
 #bootstraps data
@@ -25,21 +26,21 @@ def bootstrap(sample, predstot, predsdim, tot_integer=False):
     preds = []
 
     for i in range(predstot):
-        pick = random.choice(sample, predsdim, replace=True)
+        pick = np.random.choice(sample, predsdim, replace=True)
         if tot_integer == True:
-            preds.append(int64(floor(mean(pick))))
+            preds.append(np.int64(np.floor(np.mean(pick))))
         else:
-            preds.append(mean(pick))
+            preds.append(np.mean(pick))
 
     return preds
 
 def calculate_debt(runsdim, runstot, low_bound, high_bound):
     """ calculates tech debt and bugs """
-    debt_indexes = random.uniform(low_bound, high_bound, runstot)
+    debt_indexes = np.random.uniform(low_bound, high_bound, runstot)
     debt_indexes = runsdim * debt_indexes
-    debt_indexes = rint(debt_indexes)
+    debt_indexes = np.rint(debt_indexes)
 
-    return int64(debt_indexes)
+    return np.int64(debt_indexes)
 
 #def singleSimulation(preds, throughput, runsdim):
 def delivery_time(data):
@@ -49,7 +50,7 @@ def delivery_time(data):
     for j in range(data[1]):
         clus.add_stack()
 
-    sim = random.choice(data[0], data[2], replace=True)
+    sim = np.random.choice(data[0], data[2], replace=True)
 
     for k in range(len(sim)):
         cur = clus.get_smaller_stack()
@@ -71,7 +72,7 @@ def stories_completed(data):
     init = int(data[2] / max(data[0]) / data[1])
 
     for j in range(data[1]):
-        sim = random.choice(data[0], init, replace=True)
+        sim = np.random.choice(data[0], init, replace=True)
         for k in range(init):
             clus.get_stack(j).add_item(sim[k])
 
@@ -80,7 +81,7 @@ def stories_completed(data):
         if res.get_tot() >= data[2]:
             break
 
-        sim = random.choice(data[0], 1, replace=True)
+        sim = np.random.choice(data[0], 1, replace=True)
         cur = clus.get_smaller_stack()
         cur.add_item(sim[0])
 
@@ -94,19 +95,19 @@ def sprints_needed(data):
     for j in range(data[1]):
         clus.add_stack(True)
 
-    # init = int(data[2] / max(data[0]) / data[1])
+    init = int(data[2] / max(data[0]) / data[1])
 
-    # for j in range(data[1]):
-    #     sim = random.choice(data[0], init, replace=True)
-    #     for k in range(init):
-    #         clus.get_stack(j).add_item(sim[k])
+    for j in range(data[1]):
+        sim = np.random.choice(data[0], init, replace=True)
+        for k in range(init):
+            clus.get_stack(j).add_item(sim[k])
 
     while True:
         res = clus.get_tot()
         if res >= data[2]:
             break
 
-        sim = random.choice(data[0], data[1], replace=True)
+        sim = np.random.choice(data[0], data[1], replace=True)
 
         for i in range(data[1]):
             clus.get_stack(i).add_item(sim[i])
@@ -128,12 +129,12 @@ def get_simulation_results(sample,
                            fun):
     """ main function """
     #checking sample variance
-    if var(sample) == .0:
+    if np.var(sample) == .0:
         print("No variance in the sample I won't run the montecarlo simulation./n")
         print("Tech debt growth will be ignored as well.")
-        res = no_variance_result(mean(sample),
+        res = no_variance_result(np.mean(sample),
                                  wip,
-                                 float64(runsdim),
+                                 np.float64(runsdim),
                                  runstot,
                                  fun)
         return (res, [0 for x in range(runstot)])
@@ -171,9 +172,9 @@ def get_simulation_results(sample,
 def no_variance_result(num, wip, runsdim, runstot, fun):
     """ fake simulation in case of historical sample variance is equal to 0"""
     switcher = {
-        0: lambda num, wip, runsdim: ceil(runsdim / wip) * num,
-        1: lambda num, wip, runsdim: ceil((runsdim / num) * wip),
-        2: lambda num, wip, runsdim: ceil((runsdim / num) / wip),
+        0: lambda num, wip, runsdim: np.ceil(runsdim / wip) * num,
+        1: lambda num, wip, runsdim: np.ceil((runsdim / num) * wip),
+        2: lambda num, wip, runsdim: np.ceil((runsdim / num) / wip),
     }
     # Get the function from switcher dictionary
     func = switcher.get(fun, lambda: "nothing")
@@ -188,3 +189,128 @@ def parallelized_simulations(fun, data, procs):
     pool.close()
     pool.join()
     return results
+
+def labels_gen(number, total):
+    """ Generates labels for summary table """
+    count = 0
+    while count < number:
+        if count == 0 and not total:
+            yield 'N°'
+        elif count == 0 and number == 1 and total:
+            yield 'Tot'
+        elif count == number - 1 and total:
+            yield 'Tot'
+        elif not total:
+            yield str(count)
+        else:
+            yield str(count + 1)
+
+        count += 1
+
+def collect_data(predstot, runstot, chunksin, fun):
+    chunks = []
+    requests = []
+    debts = []
+
+    for chunk in chunksin:
+        predsdim = int(len(chunk['sample']) / 4) + 1
+
+        request = {
+            'sample': chunk['sample'],
+            'wip': chunk['wip'],
+            'predstot': predstot,
+            'predsdim': predsdim,
+            'runstot': runstot,
+            'runsdim': chunk['runsdim'],
+            'td_low_bound': chunk['td_low_bound'],
+            'td_high_bound': chunk['td_high_bound'],
+            'fun': fun
+        }
+
+        out = get_simulation_results(
+            chunk['sample'],
+            chunk['wip'],
+            predstot,
+            predsdim,
+            runstot,
+            chunk['runsdim'],
+            chunk['td_low_bound'],
+            chunk['td_high_bound'],
+            fun
+        )
+
+        chunks.append(out[0])
+        debts.append(out[1])
+        requests.append(request)
+
+    return (requests, chunks, debts)
+
+def analyze_data(data, decimals, percentiles):
+    """ Runs simulations """
+    requests = data[0]
+    requests.append(None)
+
+    chunks = data[1]
+    debts = data[2]
+
+    chunks_tot = np.sum(chunks, axis=0)
+
+    chunks_table = []
+
+    ran = [chunks_tot] if len(chunks) == 1 else np.append(chunks, [chunks_tot], axis=0)
+    label = labels_gen(len(ran), True)
+
+    averages = []
+
+    for i, chunk in enumerate(ran):
+        montecarlo = True
+
+        if i != len(ran) - 1:
+            debts_table = {}
+            debts_percentiles = np.percentile(debts[i], [5., 50., 95.]).round(decimals=decimals).tolist()
+            debts_table['min'] = debts_percentiles[0]
+            debts_table['median'] = debts_percentiles[1]
+            debts_table['max'] = debts_percentiles[2]
+
+        if requests[i]!= None and np.var(requests[i]['sample']) == .0:
+            montecarlo = False
+            average = chunk[0].item()
+        else:
+            montecarlo = True
+            p_values = np.percentile(chunk, percentiles).round(decimals=decimals)
+            maximum = np.amax(chunk).round(decimals=decimals).item()
+            average = np.percentile(chunk, 75).round(decimals=decimals).item()
+
+        summary = {
+            'name': next(label),
+            'low': average if montecarlo is False else p_values[0].item(),
+            'medium': average if montecarlo is False else p_values[1].item(),
+            'high': average if montecarlo is False else p_values[2].item(),
+            'max': average if montecarlo is False else maximum,
+            'average': average,
+            'montecarlo': montecarlo,
+            'longest': False,
+            'shortest': False,
+            'request': requests[i],
+            'debts': debts_table if (i != len(ran) - 1) else None
+            }
+
+        if summary['name'] != 'Total' or len(ran) == 1:
+            averages.append(average)
+
+        chunks_table.append(summary)
+
+    if len(ran) > 1:
+        longest_average = np.amax(averages[:-1])
+        shortest_average = np.amin(averages[:-1])
+
+        longest_i = averages.index(longest_average)
+        shortest_i = averages.index(shortest_average)
+
+        chunks_table[longest_i]['longest'] = True
+        chunks_table[shortest_i]['shortest'] = True
+
+    return {
+        'table': chunks_table,
+        'fun': requests[0]['fun']
+        }
