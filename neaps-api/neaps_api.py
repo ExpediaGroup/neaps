@@ -18,6 +18,7 @@
 """ Quantag API """
 from flask import (Flask,
                    request,
+                   jsonify,
                    make_response)
 
 #from flask.ext.cors import CORS
@@ -39,10 +40,9 @@ def create_app(config_filename):
     def api():
         """ API uri """
         data = request.get_json(force=False, silent=False, cache=False)
-
         simulations = process_data(data, int(data['fun']))
-
-        return analyze_data(simulations, 3, [55., 75., 95.])
+        data = analyze_data(simulations, 3, [55., 75., 95.])
+        return jsonify(data)
 
     return app
 

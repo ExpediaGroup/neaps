@@ -310,7 +310,7 @@ def analyze_data(data, decimals, percentiles):
         chunks_table[longest_i]['longest'] = True
         chunks_table[shortest_i]['shortest'] = True
 
-    return jsonify(
-        table = chunks_table,
-        fun = requests[0]['fun']
-        )
+    return {
+        'table': chunks_table,
+        'fun': requests[0]['fun']
+        }
