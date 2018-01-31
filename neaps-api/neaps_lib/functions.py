@@ -17,7 +17,6 @@
 import time
 from multiprocessing import Pool, cpu_count
 import numpy as np
-from flask import jsonify
 from neaps_lib.classes import StackCluster
 
 #bootstraps data
