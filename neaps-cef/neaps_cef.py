@@ -2,7 +2,6 @@
 # Tested with CEF Python v56.2+
 
 from cefpython3 import cefpython as cef
-#import base64
 import platform
 import sys
 import threading
@@ -11,7 +10,6 @@ import socket
 import numpy as np
 from socketserver import ThreadingMixIn
 from http.server import SimpleHTTPRequestHandler, HTTPServer
-
 from neaps_lib.functions import analyze_data, collect_data
 
 class ThreadingSimpleServer(ThreadingMixIn, HTTPServer):

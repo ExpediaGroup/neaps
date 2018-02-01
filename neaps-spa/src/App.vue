@@ -24,7 +24,7 @@ limitations under the License.
 <template>
 <div class="container">
   <Inserter></Inserter>
-  <Tickets></Tickets>
+  <Tickets ref="tickets"></Tickets>
 </div>
 </template>
 

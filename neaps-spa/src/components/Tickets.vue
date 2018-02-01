@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright 2018 Expedia Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -144,7 +144,7 @@ limitations under the License.
                       <span class="label no-montecarlo">No Montecarlo Simulation (Unvariant sample)</span>
                     </td>
                   </template>
-                  
+
                   <td>
                       <span class="label attribute" v-if="line.longest">Longest</span>
                       <span class="label attribute" v-if="line.shortest">Shortest</span>
@@ -169,7 +169,7 @@ const genRequest = function (legs, type) {
     'chunks': legs,
     'fun': type,
     'predstot': 1000,
-    'runstot': 20000
+    'runstot': 50000
   }
 }
 
@@ -233,12 +233,21 @@ export default {
         loading: true
       })
 
-      const ticket = genTicket(url, req)
+      if (window.get_data_available) {
+        window.get_data(req, function (simulations) {
+          console.log(simulations)
+          window.app.$children[0].$refs.tickets.getTickets.shift()
+          window.app.$children[0].$refs.tickets.addTicket(simulations)
+          // this.addTicket(simulations)
+        }).bind(this)
+      } else {
+        const ticket = genTicket(url, req)
 
-      ticket.then(function (res) {
-        this.removeTicket(last)
-        this.addTicket(res.body)
-      }.bind(this))
+        ticket.then(function (res) {
+          this.removeTicket(last)
+          this.addTicket(res.body)
+        }.bind(this))
+      }
     },
     getLabels (i) {
       return labelsSimulations[this.getTickets[i].fun]
