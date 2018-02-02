@@ -100,7 +100,7 @@ HOST = socket.gethostname()
 PORT= get_open_port()
 CWD = os.getcwd()
 
-os.chdir("dist")
+os.chdir("web")
 
 def set_javascript_bindings(browser):
   #external = External(browser)
