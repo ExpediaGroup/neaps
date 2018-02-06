@@ -5,7 +5,7 @@ USER root
 RUN apk add --update py3-flask py3-numpy uwsgi uwsgi-python3 uwsgi-corerouter uwsgi-http
 RUN rm -rf /home/neaps_api
 RUN mkdir /home/neaps_api
-RUN cd /home/neaps_api && /usr/bin/python3 -m venv neapsenv && source neapsenv/bin/activate && pip install --no-deps flask-cors
+RUN cd /home/neaps_api && /usr/bin/python3 -m venv neapsenv && source neapsenv/bin/activate
 
 COPY neaps_lib/* /home/neaps_api/neaps_lib/
 COPY pytest.ini /home/neaps_api/pytest.ini

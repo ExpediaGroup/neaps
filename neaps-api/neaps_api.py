@@ -21,8 +21,6 @@ from flask import (Flask,
                    jsonify,
                    make_response)
 
-#from flask.ext.cors import CORS
-
 import numpy as np
 from neaps_lib.functions import analyze_data, collect_data
 
