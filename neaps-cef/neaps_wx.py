@@ -96,11 +96,11 @@ def get_data(data, js_callback=None):
 
   return simulations
 
-HOST = socket.gethostname()
-PORT= get_open_port()
-CWD = os.getcwd()
+# HOST = socket.gethostname()
+# PORT= get_open_port()
+# CWD = os.getcwd()
 
-os.chdir("web")
+# os.chdir("web")
 
 def set_javascript_bindings(browser):
   #external = External(browser)
@@ -327,4 +327,19 @@ class CefApp(wx.App):
 
 
 if __name__ == '__main__':
+    HOST = socket.gethostname()
+    PORT= get_open_port()
+
+    if getattr(sys, 'frozen', False):
+        # frozen
+        CWD = os.path.dirname(sys.executable)
+    else:
+        # unfrozen
+        CWD = os.path.dirname(os.path.realpath(__file__))
+
+    #CWD = os.getcwd()
+
+    os.chdir(CWD)
+    os.chdir("web")
+
     main()
