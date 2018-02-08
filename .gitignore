@@ -148,3 +148,7 @@ ENV/
 !*/.vscode
 .env
 !*/.env
+
+#cx_freeze
+neaps-cef/dist
+neaps-cef/build

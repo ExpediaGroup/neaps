@@ -77,6 +77,11 @@ limitations under the License.
       width: 50%;
     }
   }
+
+  @media (max-width: 749px) {
+    #legs {
+      margin: auto 20px; }
+  }
 </style>
 
 <template>

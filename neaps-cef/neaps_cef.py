@@ -67,7 +67,7 @@ def get_data(data, js_callback=None):
   if js_callback:
       js_callback.Call(simulations)
 
-  return simulation
+  return simulations
 
 def main():
   check_versions()
@@ -130,6 +130,7 @@ def set_javascript_bindings(browser):
           bindToFrames=False, bindToPopups=False)
   # bindings.SetProperty("python_property", "This property was set in Python")
   # bindings.SetProperty("cefpython_version", cef.GetVersion())
+  bindings.SetProperty("get_data_available", True)
   bindings.SetFunction("get_data", get_data)
   # bindings.SetObject("external", external)
   browser.SetJavascriptBindings(bindings)
@@ -202,7 +203,17 @@ def set_javascript_bindings(browser):
 if __name__ == '__main__':
   HOST = socket.gethostname()
   PORT= get_open_port()
-  os.chdir("dist")
-  CWD = os.getcwd()
+
+  if getattr(sys, 'frozen', False):
+      # frozen
+      CWD = os.path.dirname(sys.executable)
+  else:
+      # unfrozen
+      CWD = os.path.dirname(os.path.realpath(__file__))
+
+  #CWD = os.getcwd()
+
+  os.chdir(CWD)
+  os.chdir("web")
 
   main()
