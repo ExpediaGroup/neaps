@@ -30,27 +30,30 @@ const actions = {
     if (state.firstRun) {
       defaultLeg = {
         sample: '',
-        runsdim: NaN,
-        wip: NaN,
+        runsdim: '',
+        wip: '',
         td_low_bound: 0.0,
-        td_high_bound: 0.0,
-        sampleValidation: true,
-        runsdimValidation: true,
-        wipValidation: true
+        td_high_bound: 0.0
+        // sampleValidation: true,
+        // runsdimValidation: true,
+        // wipValidation: true
       }
     } else {
       defaultLeg = {
         sample: '',
-        runsdim: NaN,
+        runsdim: '',
         wip: 1,
         td_low_bound: 0.0,
-        td_high_bound: 0.0,
-        sampleValidation: false,
-        runsdimValidation: false,
-        wipValidation: true
+        td_high_bound: 0.0
+        // sampleValidation: false,
+        // runsdimValidation: false,
+        // wipValidation: true
       }
     }
     commit('LEG_ADD', defaultLeg)
+  },
+  updateLeg ({ commit, dispatch, state }, {leg, index}) {
+    commit('LEG_UPDATE', {index, leg})
   },
   removeLeg ({ commit, dispatch, state }, i) {
     commit('LEG_REMOVE', i)
@@ -59,16 +62,16 @@ const actions = {
     let value = event.target.value
     commit('LEG_SAMPLE', { index, value })
   },
-  updateSampleValidation ({ commit, dispatch, state }, { index, value }) {
-    commit('LEG_SAMPLE_VALIDATION', { index, value })
-  },
+  // updateSampleValidation ({ commit, dispatch, state }, { index, value }) {
+  //   commit('LEG_SAMPLE_VALIDATION', { index, value })
+  // },
   updateTarget ({ commit, dispatch, state }, { event, index }) {
     let value = Number(event.target.value)
     commit('LEG_TARGET', { index, value })
   },
-  updateTargetValidation ({ commit, dispatch, state }, {index, value}) {
-    commit('LEG_TARGET_VALIDATION', { index, value })
-  },
+  // updateTargetValidation ({ commit, dispatch, state }, {index, value}) {
+  //   commit('LEG_TARGET_VALIDATION', { index, value })
+  // },
   updateWip ({ commit, dispatch, state }, { event, index }) {
     let value = Number(event.target.value)
     commit('LEG_WIP', { index, value })
@@ -76,9 +79,9 @@ const actions = {
   updateWipAll ({ commit, dispatch, state }, value) {
     commit('LEG_WIP_ALL', value)
   },
-  updateWipValidation ({ commit, dispatch, state }, {index, value}) {
-    commit('LEG_WIP_VALIDATION', {index, value})
-  },
+  // updateWipValidation ({ commit, dispatch, state }, {index, value}) {
+  //   commit('LEG_WIP_VALIDATION', {index, value})
+  // },
   updateTDLowBound ({ commit, dispatch, state }, { index, value }) {
     value = Number(value)
     commit('LEG_TD_LOW', { index, value })

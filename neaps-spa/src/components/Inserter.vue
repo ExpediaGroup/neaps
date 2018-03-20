@@ -28,55 +28,6 @@ limitations under the License.
       margin-bottom: 0;
     }
   }
-  #legs {
-    .row {
-      border-bottom: 1px solid #f3f3f3;
-      padding: 10px 0;
-    }
-    .name {
-      line-height: 50px;
-      text-align: center;
-      font-size: 24px;
-    }
-    .label {
-      margin: 5px 0 0 0;
-      font-size: 12px;
-    }
-    input {
-      margin-bottom: 5px;
-    }
-    .not-validated {
-      input {
-        border: 1px solid #f00;
-      }
-      label {
-        color: #f00;
-      }
-    }   
-    .unit {
-      font-size: 11px;
-      display: block;
-      padding: 5px 0;
-    }
-    .remove {
-      line-height: 90px;
-      text-align: center;
-      font-size: 24px;
-      a {
-        text-decoration: none;
-      }
-    }
-    .add {
-      font-size: 14px;
-      margin: 20px;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .techDebtContainer {
-      float: left;
-      width: 50%;
-    }
-  }
 </style>
 
 <template>
@@ -95,46 +46,7 @@ limitations under the License.
           <div class="one column name">
             {{ index + 1 }}
           </div>
-          <div class="four columns" v-bind:class="{ 'not-validated': !leg.sampleValidation }">
-            <label class="label">Historical Sample</label>
-            <span class="unit">{{ legLabels.sample }}</span>
-            <input @input="validateSample($event, index)" v-bind:id="'leg'+index+'_sample' "placeholder="1,2,3,4,5" v-model="leg.sample" class="u-full-width" type="text">
-          </div>
-          <div class="onehalf columns" v-bind:class="{ 'not-validated': !leg.runsdimValidation,  'four': teamType }">
-            <label class="label">Target</label>
-            <span class="unit">{{ legLabels.target }}</span>
-            <input @input="validateTarget($event, index)" v-bind:id="'leg'+index+'_target' "placeholder="5" v-model.number="leg.runsdim" class="u-full-width" type="number">
-          </div>
-          <div class="onehalf columns" v-show="getType!=2" v-bind:class="{ 'not-validated': !leg.wipValidation }">
-            <label class="label">WIP</label>
-            <span class="unit">{{ legLabels.wip }}</span>
-            <input v-on:input="validateWip($event, index)" v-bind:id="'leg'+index+'_wip'" placeholder="5" v-model="leg.wip" class="u-full-width" type="number">
-          </div>
-          <div class="three columns">
-            <label class="label">Tech Debt Simulation</label>
-            <div class="techDebtContainer">
-              <span class="unit">Minimun</span>
-              <select v-bind:id="'techDebtMin'+index" @change="setTechDebtLow($event, index)">
-                <option value="0.0">0%</option>
-                <option value="0.1">10%</option>
-                <option value="0.2">20%</option>
-                <option value="0.3">30%</option>
-                <option value="0.4">40%</option>
-              </select>
-            </div>
-            <div class="techDebtContainer">
-              <span class="unit">Maximum</span>
-              <select v-bind:id="'techDebtMax'+index" @change="setTechDebtHigh($event, index)">
-                <option value="0.0">0%</option>
-                <option value="0.1">10%</option>
-                <option value="0.2">20%</option>
-                <option value="0.3">30%</option>
-                <option value="0.4">40%</option>
-                <option value="0.5">50%</option>
-                <option value="0.6">60%</option>
-              </select>
-            </div>
-          </div>
+          <Leg @changeValidation="updateValidation" v-bind:leg="leg" v-bind:index="index"></Leg>
           <div class="one column remove">
             <a href="#" class="icon-minus-circled" @click.prevent="removeLeg(index)" v-show="singleLeg"></a>
           </div>
@@ -147,32 +59,15 @@ limitations under the License.
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import labelsInserter from './labelsInserter'
-
-const updateTechDebtHigh = (value, el, opts) => {
-  let index = value * 10
-  if (value !== '0.0') {
-    index += 1
-  }
-  el.selectedIndex = index
-  for (let i = 0; i < opts.length; i++) {
-    if (i < index) {
-      opts[i].disabled = true
-    } else {
-      opts[i].disabled = false
-    }
-  }
-}
+import Leg from './Leg.vue'
 
 export default {
+  components: {
+    Leg
+  },
   mounted: function () {
     this.addLeg()
   },
-  // data: function () {
-  //   return {
-  //     simulationType: 0
-  //   }
-  // },
   computed: {
     singleLeg: function () {
       if (this.getLegs.length === 1) {
@@ -181,16 +76,36 @@ export default {
         return true
       }
     },
-    legLabels: function () {
-      return labelsInserter[this.getType]
-    },
     ...mapGetters([
       'isFirstRun',
       'getType',
       'getLegs'
     ])
   },
+  data: function () {
+    return {
+      insValidated: []
+    }
+  },
   methods: {
+    updateValidation: function (i, value) {
+      console.log('I am validating')
+      console.log(i)
+      console.log(value)
+      this.insValidated[i] = value
+      console.log(this.insValidated)
+
+      let check = true
+      for (let value of this.insValidated) {
+        check = check && value
+      }
+
+      if (check) {
+        this.setValidated(true)
+      } else {
+        this.setValidated(false)
+      }
+    },
     setSimulationType: function (event) {
       console.log('changing simulation')
       let value = event.target.value
@@ -203,87 +118,12 @@ export default {
       }
       return this.getType
     },
-    startValidation: function (index, type) {
-      if (this.isFirstRun) {
-        // this.disableFirstRun()
-        for (let i = 0; i < this.getLegs.length; i++) {
-          if (i === index && type === 0) {
-            this.updateTargetValidation({ index, 'value': false })
-            this.updateWipValidation({ index, 'value': false })
-          } else if (i === index && type === 1) {
-            this.updateSampleValidation({ index, 'value': false })
-            this.updateWipValidation({ index, 'value': false })
-          } else if (i === index && type === 2) {
-            this.updateSampleValidation({ index, 'value': false })
-            this.updateTargetValidation({ index, 'value': false })
-          } else {
-            this.updateSampleValidation({ 'index': i, 'value': false })
-            this.updateTargetValidation({ 'index': i, 'value': false })
-            this.updateWipValidation({ 'index': i, 'value': false })
-          }
-        }
-        this.disableFirstRun()
-      }
-    },
-    validateSample: function (e, index) {
-      this.startValidation(index, 0)
-      if (e.target.value !== '' && e.target.value.match(/^[0-9]+(,[0-9]+)*$/) == null) {
-        this.updateSampleValidation({ index, 'value': false })
-      } else {
-        this.updateSampleValidation({ index, 'value': true })
-      }
-    },
-    validateTarget: function (e, index) {
-      this.startValidation(index, 1)
-      // this.disableFirstRun()
-      if (e.target.value <= 0 || e.target.value.match(/^[\d]+[\s]*$/) == null) {
-        this.updateTargetValidation({ index, 'value': false })
-      } else {
-        this.updateTargetValidation({ index, 'value': true })
-      }
-    },
-    validateWip: function (e, index) {
-      this.startValidation(index, 2)
-
-      let value = ''
-
-      if (e.target) {
-        value = e.target.value
-      } else {
-        value = e
-      }
-
-      if (value <= 0 || value.match(/^[\d]+[\s]*$/) == null) {
-        this.updateWipValidation({ index, 'value': false })
-      } else {
-        this.updateWipValidation({ index, 'value': true })
-      }
-    },
-    setTechDebtLow: function (event, index) {
-      const id = 'techDebtMax' + index
-      const el = document.getElementById(id)
-      const opts = el.options
-      const value = event.target.value
-      updateTechDebtHigh(value, el, opts)
-      this.updateTDLowBound({ index, value })
-      const valueMax = Math.round((Number(value) + 0.1) * 10) / 10
-      this.updateTDHighBound({ index, value: valueMax })
-    },
-    setTechDebtHigh: function (event, index) {
-      const value = event.target.value
-      this.updateTDHighBound({ index, value })
-    },
     ...mapActions([
-      'disableFirstRun',
+      'disableFirsrRun',
+      'setValidated',
       'setType',
       'addLeg',
-      'removeLeg',
-      'updateSampleValidation',
-      'updateTargetValidation',
-      'updateWipAll',
-      'updateWipValidation',
-      'updateTDLowBound',
-      'updateTDHighBound'
+      'removeLeg'
     ])
   }
 }

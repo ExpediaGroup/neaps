@@ -93,7 +93,7 @@ limitations under the License.
 <template>
   <div id="tickets-wrapper">
     <div id="cta">
-      <button id="cta_button" @click="runSimulation(getTickets.length)" class="button-primary" v-bind:class="{ 'disabled': !allValidated || (getTickets[0] && getTickets[0].loading) }">Run Simulation</button>
+      <button id="cta_button" @click="runSimulation(getTickets.length)" class="button-primary" v-bind:class="{ 'disabled': !isValidated || (getTickets[0] && getTickets[0].loading) }">Run Simulation</button>
     </div>
     <div id='tickets'>
         <div v-bind:id="'ticket' + index" :key="ticket.index" v-for="(ticket, index) in getTickets" class="row ticket">
@@ -187,27 +187,9 @@ const genTicket = function (url, req) {
 
 export default {
   computed: {
-    allValidated: function () {
-      let validated = false
-      for (let leg of this.getLegs) {
-        if (leg.sampleValidation === true &&
-          leg.runsdimValidation === true &&
-          leg.wipValidation === true &&
-          this.isFirstRun === true) {
-          return false
-        } else if (leg.sampleValidation === true &&
-        leg.runsdimValidation === true &&
-        leg.wipValidation === true &&
-        this.isFirstRun === false) {
-          validated = true
-        } else {
-          validated = false
-        }
-      }
-      return validated
-    },
     ...mapGetters([
       'isFirstRun',
+      'isValidated',
       'getType',
       'getLegs',
       'getTickets'

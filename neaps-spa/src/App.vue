@@ -31,12 +31,14 @@ limitations under the License.
 <script>
 import Inserter from './components/Inserter.vue'
 import Tickets from './components/Tickets.vue'
+import Leg from './components/Leg.vue'
 import store from './vuex/store'
 
 export default {
   components: {
     Inserter,
-    Tickets
+    Tickets,
+    Leg
   },
   store
 }
