@@ -81,6 +81,10 @@ def main():
   settings = {
       # "product_version": "MyProduct/10.00",
       # "user_agent": "MyAgent/20.00 MyProduct/10.00",
+      "debug": True,
+      "log_severity": cef.LOGSEVERITY_INFO,
+      "log_file": "debug.log",
+      'remote_debugging_port': 8080
   }
   cef.Initialize(settings=settings)
 #  set_global_handler()
