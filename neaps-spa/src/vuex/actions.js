@@ -31,7 +31,7 @@ const actions = {
       defaultLeg = {
         sample: '',
         runsdim: '',
-        wip: '',
+        wip: 1,
         td_low_bound: 0.0,
         td_high_bound: 0.0
         // sampleValidation: true,

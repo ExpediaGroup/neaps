@@ -51,7 +51,7 @@ limitations under the License.
             <a href="#" class="icon-minus-circled" @click.prevent="removeLeg(index)" v-show="singleLeg"></a>
           </div>
         </div>
-        <a id="addLeg" class="add icon-plus-squared" href="#" @click.prevent="addLeg"> Add Group</a>
+        <a id="addLeg" class="add icon-plus-squared" href="#" @click.prevent="wrapAddLeg"> Add Group</a>
       </div>
     </div>
   </div>
@@ -66,7 +66,7 @@ export default {
     Leg
   },
   mounted: function () {
-    this.addLeg()
+    this.wrapAddLeg()
   },
   computed: {
     singleLeg: function () {
@@ -88,6 +88,12 @@ export default {
     }
   },
   methods: {
+    wrapAddLeg: function () {
+      console.log('')
+      this.addLeg()
+      this.insValidated.push(false)
+      this.setValidated(false)
+    },
     updateValidation: function (i, value) {
       console.log('I am validating')
       console.log(i)

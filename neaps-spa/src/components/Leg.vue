@@ -68,17 +68,17 @@ limitations under the License.
 
 <template>
   <div class="leginserter">
-    <div class="four columns" v-bind:class="{ 'not-validated': !sampleValidation }">
+    <div class="four columns" v-bind:class="{ 'not-validated': !sampleValidation && !isFirstRun }">
       <label class="label">Historical Sample</label>
       <span class="unit">{{ legLabels.sample }}</span>
       <input @input="validateSample($event)" v-bind:id="'leg'+index+'_sample' "placeholder="1,2,3,4,5" v-model="leg.sample" class="u-full-width" type="text">
     </div>
-    <div class="onehalf columns" v-bind:class="{ 'not-validated': !runsdimValidation,  'four': teamType }">
+    <div class="onehalf columns" v-bind:class="{ 'not-validated': !runsdimValidation && !isFirstRun,  'four': getType == 2 }">
       <label class="label">Target</label>
       <span class="unit">{{ legLabels.target }}</span>
       <input @input="validateTarget($event)" v-bind:id="'leg'+index+'_target' "placeholder="5" v-model="leg.runsdim" class="u-full-width" type="number">
     </div>
-    <div class="onehalf columns" v-show="getType!=2" v-bind:class="{ 'not-validated': !wipValidation }">
+    <div class="onehalf columns" v-show="getType!=2" v-bind:class="{ 'not-validated': !wipValidation && !isFirstRun }">
       <label class="label">WIP</label>
       <span class="unit">{{ legLabels.wip }}</span>
       <input @input="validateWip($event)" v-bind:id="'leg'+index+'_wip'" placeholder="5" v-model="leg.wip" class="u-full-width" type="number">
@@ -131,8 +131,6 @@ const updateTechDebtHigh = (value, el, opts) => {
 }
 
 export default {
-  mounted: function () {
-  },
   props: {
     leg: {
       type: Object,
@@ -143,28 +141,33 @@ export default {
       required: true
     }
   },
+  data: function () {
+    return {
+      sampleValidation: false,
+      wipValidation: true,
+      runsdimValidation: false
+    }
+  },
   computed: {
     legLabels: function () {
       return labelsInserter[this.getType]
     },
     legValidated: function () {
-      let value = (this.sampleValidation && this.wipValidation && this.runsdimValidation)
+      let sv = this.sampleValidation
+      let wv = this.wipValidation
+      let rv = this.runsdimValidation
+      let value = sv && wv && rv
       this.$emit('changeValidation', this.index, value)
       return value
     },
     ...mapGetters([
+      'isFirstRun',
       'getType'
     ])
   },
-  data: function () {
-    return {
-      'sampleValidation': false,
-      'wipValidation': false,
-      'runsdimValidation': false
-    }
-  },
   methods: {
     validateSample: function (e) {
+      this.disableFirstRun()
       // this.startValidation(index, 0)
       if (e.target.value !== '' && e.target.value.match(/^[0-9]+(,[0-9]+)*$/) == null) {
         this.sampleValidation = false
@@ -174,10 +177,11 @@ export default {
       // this.$emit('change', this.leg, this.index)
       const index = this.index
       this.updateSample({ event: e, index })
+      this.legValidated
     },
     validateTarget: function (e) {
       // this.startValidation(index, 1)
-      // this.disableFirstRun()
+      this.disableFirstRun()
       if (e.target.value <= 0) {
         this.runsdimValidation = false
       } else {
@@ -185,8 +189,10 @@ export default {
       }
       const index = this.index
       this.updateTarget({ event: e, index })
+      this.legValidated
     },
     validateWip: function (e) {
+      this.disableFirstRun()
       if (e.target.value <= 0) {
         this.wipValidation = false
       } else {
@@ -194,6 +200,7 @@ export default {
       }
       const index = this.index
       this.updateWip({ event: e, index })
+      this.legValidated
     },
     setTechDebtLow: function (event) {
       const index = this.index
@@ -212,10 +219,8 @@ export default {
       this.updateTDHighBound({ index, value })
     },
     ...mapActions([
-      // 'updateSampleValidation',
-      // 'updateTargetValidation',
+      'disableFirstRun',
       'updateWipAll',
-      // 'updateWipValidation',
       'updateSample',
       'updateTarget',
       'updateWip',
