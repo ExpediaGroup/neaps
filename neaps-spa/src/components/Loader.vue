@@ -99,6 +99,7 @@ limitations under the License.
         <div v-if="showPopup" class="popupContainer">
           <h4>Select sample to load:</h4>
           <div class="popupContent">
+            <p v-if="!storeEmpty">We are sorry you have no samples saved yet.</p>
             <div v-for="(load, index) in loadables">
               <div class="row clearfix loadLine">
                 <span class="key">{{ index }}</span>
@@ -123,7 +124,8 @@ export default {
   data: function () {
     return {
       loadables: {},
-      showPopup: false
+      showPopup: false,
+      storeEmpty: false
     }
   },
   computed: {
@@ -138,8 +140,16 @@ export default {
       this.showPopup = false
     },
     openPopup: function () {
-      this.loadables = store()
-      this.showPopup = true
+      console.log('111111111111111111')
+      const loads = store()
+      if (Object.keys(loads).length === 0) {
+        this.storeEmpty = false
+        this.showPopup = true
+      } else {
+        this.loadables = loads
+        this.storeEmpty = true
+        this.showPopup = true
+      }
     },
     ...mapActions([
       'disableFirstRun',
