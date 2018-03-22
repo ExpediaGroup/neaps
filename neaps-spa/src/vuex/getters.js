@@ -18,6 +18,9 @@ const getters = {
   isFirstRun: state => {
     return state.firstRun
   },
+  isValidated: state => {
+    return state.validated
+  },
   getType: state => {
     return state.type
   },

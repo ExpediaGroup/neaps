@@ -35,7 +35,7 @@ module.exports = {
       .assert.elementPresent('//*[@id="ticket0"]')
       // .pause(15000)
       // .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr')
-      .waitForElementVisible('//*[@id="ticket0"]/table/tbody/tr', 50000)
+      .waitForElementVisible('//*[@id="ticket0"]/table/tbody/tr', 120000)
       .end()
   },
   'run two simulations kanban type 2 with one no montecarlo leg': function (browser) {
@@ -56,7 +56,7 @@ module.exports = {
       // .pause(15000)
       // .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr')
       // .assert.cssClassPresent('//*[@id="ticket0"]/table/tbody/tr', 'montecarlo')
-      .waitForElementVisible('//*[@id="ticket0"]/table/tbody/tr', 50000)
+      .waitForElementVisible('//*[@id="ticket0"]/table/tbody/tr', 120000)
       .assert.cssClassPresent('//*[@id="ticket0"]/table/tbody/tr', 'montecarlo')
       .end()
   },
@@ -83,7 +83,7 @@ module.exports = {
       // .pause(30000)
       // .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]')
       // .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line1"]')
-      .waitForElementVisible('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]', 50000)
+      .waitForElementVisible('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]', 120000)
       .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line1"]')
       .end()
   },
@@ -112,7 +112,7 @@ module.exports = {
       // .assert.cssClassPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]', 'montecarlo')
       // .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line1"]')
       // .assert.cssClassPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line1"]', 'montecarlo')
-      .waitForElementVisible('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]', 50000)
+      .waitForElementVisible('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]', 120000)
       .assert.cssClassPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]', 'montecarlo')
       .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line1"]')
       .assert.cssClassPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line1"]', 'montecarlo')
@@ -142,7 +142,7 @@ module.exports = {
       // .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]')
       // .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line1"]')
       // .assert.cssClassPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line1"]', 'montecarlo')
-      .waitForElementVisible('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]', 50000)
+      .waitForElementVisible('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]', 120000)
       .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line1"]')
       .assert.cssClassPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line1"]', 'montecarlo')
       .end()

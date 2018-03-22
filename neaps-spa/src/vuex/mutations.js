@@ -30,6 +30,9 @@ const mutations = {
   LEG_ADD (state, object) {
     state.legs.push(object)
   },
+  LEG_UPDATE (state, { index, leg }) {
+    state.legs[index] = leg
+  },
   LEG_REMOVE (state, index) {
     state.legs.splice(index, 1)
   },
