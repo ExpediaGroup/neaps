@@ -15,10 +15,6 @@ limitations under the License.
 */
 
 <style src="./styles/global.scss" lang="scss">
-.container {
-  max-width: 80%;
-  width: 80%;
-}
 </style>
 
 <template>

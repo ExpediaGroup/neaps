@@ -59,6 +59,7 @@ const actions = {
     commit('LEG_REMOVE', i)
   },
   updateSample ({ commit, dispatch, state }, { event, index }) {
+    console.log(event)
     let value = event.target.value
     commit('LEG_SAMPLE', { index, value })
   },

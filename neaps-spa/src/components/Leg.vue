@@ -19,6 +19,10 @@ limitations under the License.
     .row {
       border-bottom: 1px solid #f3f3f3;
       padding: 10px 0;
+
+      .internalRow {
+        border: none;
+      }
     }
     .name {
       line-height: 50px;
@@ -72,6 +76,10 @@ limitations under the License.
       <label class="label">Historical Sample</label>
       <span class="unit">{{ legLabels.sample }}</span>
       <input @input="validateSample($event)" v-bind:id="'leg'+index+'_sample' "placeholder="1,2,3,4,5" v-model="leg.sample" class="u-full-width" type="text">
+      <div class="row internalRow">
+        <Loader @sampleLoaded="loadSample"></Loader>
+        <Saver v-bind:sample="leg.sample" v-show="sampleValidation"></Saver>
+      </div>
     </div>
     <div class="onehalf columns" v-bind:class="{ 'not-validated': !runsdimValidation && !isFirstRun,  'four': getType == 2 }">
       <label class="label">Target</label>
@@ -113,6 +121,8 @@ limitations under the License.
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import Loader from './Loader.vue'
+import Saver from './Saver.vue'
 import labelsInserter from './labelsInserter'
 
 const updateTechDebtHigh = (value, el, opts) => {
@@ -131,6 +141,10 @@ const updateTechDebtHigh = (value, el, opts) => {
 }
 
 export default {
+  components: {
+    Loader,
+    Saver
+  },
   props: {
     leg: {
       type: Object,
@@ -166,6 +180,14 @@ export default {
     ])
   },
   methods: {
+    loadSample: function (load) {
+      let e = {}
+      e['target'] = {}
+      e['target']['value'] = load
+      const index = this.index
+      this.updateSample({ event: e, index })
+      this.validateSample(e)
+    },
     validateSample: function (e) {
       this.disableFirstRun()
       // this.startValidation(index, 0)
