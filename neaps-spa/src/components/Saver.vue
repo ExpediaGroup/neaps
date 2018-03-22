@@ -49,6 +49,18 @@ limitations under the License.
       display: block;
       margin: 0 5px;
     }
+
+    .disabled {
+      cursor: default;
+      border: #f3f3f3 1px solid;
+      color: #f3f3f3;
+
+      &:hover {
+        cursor: default;
+        border: #f3f3f3 1px solid;
+        color: #f3f3f3;
+      }
+    }
   }
   .fade_popup-enter-active, .fade_popup-leave-active {
     transition: opacity .3s;
@@ -68,7 +80,7 @@ limitations under the License.
 
 <template>
     <div id="saver" class="two columns">
-      <a id="saveSample" class="save" href="#" @click.prevent="openPopup">Save</a>
+      <a id="saveSample" class="save icon-floppy" href="#" @click.prevent="openPopup"> Save</a>
 
       <transition name="fade_overlay">
         <div v-if="showPopup" class="overlay" id="loaderPopup">
@@ -79,8 +91,8 @@ limitations under the License.
         <div v-if="showPopup" class="popupContainerSave">
           <h4>Insert a name for your sample:</h4>
           <div class="popupContent">
-            <input placeholder="simple name" v-model="name" class="nameInput" type="text">
-            <a class="button small" href="#" @click.prevent="saveSample(name)">Save</a>
+            <input @input="validateName($event)" placeholder="simple name" v-model="name" class="nameInput" type="text">
+            <a class="button small" href="#" v-bind:class="{ 'disabled': !enableSave }" @click.prevent="saveSample(name)">Save</a>
           </div>
           <a href="#" class="cancel" @click.prevent="showPopup = false">Cancel</a>
         </div>
@@ -98,6 +110,7 @@ export default {
   data: function () {
     return {
       showPopup: false,
+      enableSave: false,
       name: ''
     }
   },
@@ -114,6 +127,13 @@ export default {
     ])
   },
   methods: {
+    validateName: function (event) {
+      if (event.target.value.length > 0) {
+        this.enableSave = true
+      } else {
+        this.enableSave = false
+      }
+    },
     saveSample: function (name) {
       store(name, this.sample)
       this.showPopup = false

@@ -98,7 +98,7 @@ limitations under the License.
     <div id='tickets'>
         <div v-bind:id="'ticket' + index" :key="ticket.index" v-for="(ticket, index) in getTickets" class="row ticket">
           <template v-if="ticket.loading">
-            <h1><span class="icon-spin2 animate-spin"></span> Simulation {{ getTickets.length - index }} - Running...</h1>
+            <h1><span class="icon-spin1 animate-spin"></span> Simulation {{ getTickets.length - index }} - Running...</h1>
           </template>
           <template v-else>
             <h1>Simulation {{ getTickets.length - index }}</h1>

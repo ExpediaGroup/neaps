@@ -28,6 +28,13 @@ limitations under the License.
       margin-bottom: 0;
     }
   }
+  .fade-enter-active, .fade-leave-active {
+    transition: all .3s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(20px);
+  }
 </style>
 
 <template>
@@ -42,15 +49,17 @@ limitations under the License.
         </select>
       </div>
       <div id="legs">
-        <div class="row" v-bind:id="'leg'+index" v-bind:key="leg.index" v-for="(leg, index) in getLegs">
-          <div class="one column name">
-            {{ index + 1 }}
+        <transition-group name="fade" tag="div">
+          <div class="row" v-bind:id="'leg'+index" v-bind:key="leg" v-for="(leg, index) in getLegs">
+              <div class="one column name">
+                {{ index + 1 }}
+              </div>
+              <Leg @changeValidation="updateValidation" v-bind:leg="leg" v-bind:index="index"></Leg>
+              <div class="one column remove">
+                <a href="#" class="icon-minus-circled" @click.prevent="removeLeg(index)" v-show="singleLeg"></a>
+              </div>
           </div>
-          <Leg @changeValidation="updateValidation" v-bind:leg="leg" v-bind:index="index"></Leg>
-          <div class="one column remove">
-            <a href="#" class="icon-minus-circled" @click.prevent="removeLeg(index)" v-show="singleLeg"></a>
-          </div>
-        </div>
+        </transition-group>
         <a id="addLeg" class="add icon-plus-squared" href="#" @click.prevent="wrapAddLeg"> Add Group</a>
       </div>
     </div>

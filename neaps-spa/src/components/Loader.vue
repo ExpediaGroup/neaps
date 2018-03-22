@@ -88,7 +88,7 @@ limitations under the License.
 
 <template>
     <div id="loader" class="two columns">
-      <a id="loaderSample" class="load" href="#" @click.prevent="openPopup">Load</a>
+      <a id="loaderSample" class="load icon-download" href="#" @click.prevent="openPopup"> Load</a>
 
       <transition name="fade_overlay">
         <div v-if="showPopup" class="overlay" id="loaderPopup">
