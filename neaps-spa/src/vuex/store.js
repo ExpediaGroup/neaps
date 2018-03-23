@@ -28,6 +28,7 @@ Vue.use(Vuex)
 const state = {
   // When the app starts, count is set to 0
   firstRun: true,
+  validated: false,
   type: 0,
   legs: [],
   tickets: []
