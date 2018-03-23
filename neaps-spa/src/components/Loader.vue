@@ -29,7 +29,6 @@ limitations under the License.
   }
   .popupContainer {
     position: fixed;
-    width: 20%;
     left: 50%;
     top: 5%;
     margin-left: -193px;
