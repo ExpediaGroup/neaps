@@ -30,11 +30,13 @@ limitations under the License.
   .popupContainerSave {
     position: fixed;
     width: 20%;
-    left: 40%;
+    left: 50%;
     top: 5%;
+    margin-left: -193px;
     background: #fff;
     padding: 5px;
     z-index: 1001;
+    min-width: 385px;
 
     h4 {
       background: #f3f3f3;
