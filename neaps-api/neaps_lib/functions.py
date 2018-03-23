@@ -68,8 +68,8 @@ def stories_completed(data):
     for j in range(data[1]):
         clus.add_stack()
 
-    #init = int(data[2] / max(data[0])) - 1
-    init = int(data[2] / max(data[0]) / data[1])
+    init = int(data[2] / max(data[0])) - 1
+    #init = int(data[2] / max(data[0]) / data[1])
 
     for j in range(data[1]):
         sim = np.random.choice(data[0], init, replace=True)
