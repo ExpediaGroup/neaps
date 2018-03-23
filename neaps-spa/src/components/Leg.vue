@@ -81,7 +81,7 @@ limitations under the License.
         <Saver v-bind:sample="leg.sample" v-show="sampleValidation"></Saver>
       </div>
     </div>
-    <div class="onehalf columns" v-bind:class="{ 'not-validated': !runsdimValidation && !isFirstRun,  'four': getType == 2 }">
+    <div class="onehalf columns" v-bind:class="{ 'not-validated': !runsdimValidation && !isFirstRun,  'three': getType == 2 }">
       <label class="label">Target</label>
       <span class="unit">{{ legLabels.target }}</span>
       <input @input="validateTarget($event)" v-bind:id="'leg'+index+'_target' "placeholder="5" v-model="leg.runsdim" class="u-full-width" type="number">
