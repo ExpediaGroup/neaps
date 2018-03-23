@@ -83,7 +83,7 @@ module.exports = {
       // .pause(30000)
       // .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]')
       // .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line1"]')
-      .waitForElementVisible('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]', 150000)
+      .waitForElementVisible('//*[@id="ticket0"]/table/tbody/tr[@id="line0"]', 250000)
       .assert.elementPresent('//*[@id="ticket0"]/table/tbody/tr[@id="line1"]')
       .end()
   },
