@@ -101,7 +101,7 @@ limitations under the License.
           <h4>Select sample to load:</h4>
           <div class="popupContent">
             <p v-if="!storeEmpty">We are sorry you have no samples saved yet.</p>
-            <div v-for="(load, index) in loadables">
+            <div v-bind:key="load" v-for="(load, index) in loadables">
               <div class="row clearfix loadLine">
                 <span class="key">{{ index }}</span>
                 <span class="value">{{ load }}</span> 
