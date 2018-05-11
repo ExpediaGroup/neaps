@@ -145,6 +145,6 @@ ENV/
 .ropeproject
 
 .vscode
-!*/.vscode
+*/.vscode
 .env
-!*/.env
+*/.env
