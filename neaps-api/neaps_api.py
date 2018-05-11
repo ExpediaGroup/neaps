@@ -24,7 +24,8 @@ from flask import (Flask,
 #from flask.ext.cors import CORS
 
 import numpy as np
-from neaps_lib.functions import analyze_data, collect_data
+from neaps_lib.functions.collect_data import collect_data
+from neaps_lib.functions.analyze_data import analyze_data
 
 def create_app(config_filename):
     app = Flask(__name__)
@@ -60,6 +61,8 @@ def process_data(data, fun):
         chunk['runsdim'] = int(chunk['runsdim'])
         chunk['td_low_bound'] = float(chunk['td_low_bound'])
         chunk['td_high_bound'] = float(chunk['td_high_bound'])
+
+    print(type(collect_data))
 
     return collect_data(predstot, runstot, chunksin, fun)
 
