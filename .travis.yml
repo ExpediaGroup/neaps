@@ -17,7 +17,7 @@ matrix:
         - cd neaps-api/
         - echo "@@@ Installing API requirements @@@"
         - pip install -r requirements.txt
-        - flask run >/dev/null 2>&1 &
+        - flask run &
         - cd ../neaps-spa/
       install:
         - echo "@@@ Installing SPA requirements @@@"
