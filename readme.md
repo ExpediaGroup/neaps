@@ -30,3 +30,9 @@ Created by [Giuseppe Sorrentino](https://github.com/glsorre).
 This project is available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 Copyright 2018 Expedia Inc.
+
+# Big Thanks
+
+Cross-browser Testing Platform and Open Source <3 Provided by [Sauce Labs][homepage]
+
+[homepage]: https://saucelabs.com
