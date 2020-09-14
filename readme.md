@@ -1,32 +1,38 @@
-# *neaps* - no-estimates agile process simulator
+# Agile Tool
 
-## a simulator to forecast the end of agile project basing on historical data and using montecarlo simulations
+## TBD
 
-[![Build Status](https://travis-ci.org/HotelsDotCom/neaps.svg?branch=master)](https://travis-ci.org/HotelsDotCom/neaps)
+[![Build Status](https://travis-ci.org/HotelsDotCom/agile-tool.svg?branch=master)](https://travis-ci.org/HotelsDotCom/agile-tool)
 
----
+## Overview
+### Background
+In the past, the Hotels.com Agile Community have been using different tools to collect metrics related to Teams and/or Projects.
+The Agile Tool is meant to provide a single and consistent set of tools.
 
-# Start using
+### Tools
 
-![Getting started.](screenshot.png "A screenshot of neaps with showing a basic simulation.")
+- Dashboard: A tool that displays Team information at a glance.
 
-You can easily run it locally by referring at the `readme.md` found in [`neaps-spa`](https://github.com/HotelsDotCom/neaps/blob/master/neaps-spa/README.md) and [`neaps-api`](https://github.com/HotelsDotCom/neaps/blob/master/neaps-api/readme.md) directories.
+- Times Calculator: A tool that collects and displays delivery metrics such as Throughput, Cycle Time etc.
 
-# Overview
-NEAPS is a montecarlo simulator which estimates the deadline of agile projects, starting from historical data.
+- Block'o'meter: A tool that collects info on blocked Jira items such as block duration and reasons.
 
-Currently the projects supports thrre types of simulation:
-- for kanban projects esitmates the number of days required to complete a given number of stories (starting from a cycle time sample);
-- for kanban projects estimates the number of stories done in a given time frame (starting from a cycle time sample);
-- for scrum projects estimates the number of sprint required to complete a given number of stories (starting from a throughput sample).
+- NEAPS: No-Estimates Agile Process Simulator. A tool to forecast the end of a project using historical data as an input and leveraging on montecarlo simulations.
 
-# Documentation
-Please refer to the `readme.md` found in `neaps-spa` and `neaps-api` directories.
+## Start using
 
-# Credits
+![A screenshot of Times Calculator.](timescalculator.png )
+!["A screenshot of NEAPS.](neaps.png)
+
+You can easily run it locally by referring at the `README.md` found in [`agile-tool-spa`](https://github.com/HotelsDotCom/agile-tool/blob/master/agile-tool-spa/README.md) and [`agile-tool-api`](https://github.com/HotelsDotCom/agile-tool/blob/master/agile-tool-api/readme.md) directories.
+
+## Documentation
+Please refer to the `readme.md` found in `agile-tool-spa` and `agile-tool-api` directories.
+
+## Credits
 Created by [Giuseppe Sorrentino](https://github.com/glsorre).
 
-# Legal
+## Legal
 This project is available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 Copyright 2018 Expedia Inc.
